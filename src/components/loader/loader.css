@@ -1,0 +1,35 @@
+
+
+.ring-container {
+    width: 100px;
+    height: 100px;
+    position: relative;
+}
+
+.ring-one, .ring-two {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    inset: 0;
+    border: 2px solid white;
+    border-radius: 50%;
+    background-color: transparent;
+    animation: scale 400ms infinite;
+}
+
+.ring-two {
+    animation-delay: 200ms;
+}
+
+@keyframes scale {
+    from {
+        transform: scale(0.2);
+        opacity: 1;
+    }
+    to {
+        transform: scale(1);
+        opacity: 0;
+    }
+    
+}
+

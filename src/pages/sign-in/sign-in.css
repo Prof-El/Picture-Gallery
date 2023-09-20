@@ -1,0 +1,29 @@
+
+
+
+.sign-in-container {
+    padding: 10px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    height: 150px;
+    justify-content: center;
+    align-items: center;
+    background: none;
+    box-shadow: 0px 5px 26px 0px rgba(248, 246, 246, 0.22), 0px 20px 28px 0px rgb(0 0 0 / 30%);
+}
+
+
+.email {
+    margin-bottom: 10px;
+}
+
+.password {
+    margin-bottom: 10px;
+}
+
+.submit {
+    background-color: green;
+    padding: 5px;
+    color: white;
+}
