@@ -4,7 +4,7 @@ import { app } from '../../firebaseConfig';
 import { getAuth, signInWithEmailAndPassword} from 'firebase/auth'
 import './sign-in.css'
 import {Link, useNavigate} from "react-router-dom"
-
+import myPicture from '../../assets/my-picture.jpg'
 
 function SignIn() {
   let auth = getAuth();
@@ -65,6 +65,10 @@ function SignIn() {
 
   return (
     <>
+      <div className='personal'>
+        <img src={myPicture} alt='my picture' />
+        <p>SIGN IN TO VIEW MY GALLERY</p>
+      </div>
       <div className='sign-in-container'>
         <input
           className='email'

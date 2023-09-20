@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import ImageCard from "../../components/imageCard/imageCard";
 import './home.css'
 import Loader from "../../components/loader/loader";
+import SearchCard from "../../components/searchCard/searchCard";
 
 
 
@@ -19,7 +20,7 @@ const Home = () => {
     }, [category])
     
     const getImage =  () => {
-        fetch(`https://api.pexels.com/v1/search?query=${category}&per_page=15&page=1`, {
+        fetch(`https://api.pexels.com/v1/search?query=${category}&per_page=80&page=1`, {
             headers: {
               Authorization: 'CVXUZC8BDLWrIWzBlWAkBmDAC8UFNju5pZqlc11SrGnfarpYsSyWBwi3'
             }
@@ -107,19 +108,76 @@ const Home = () => {
             setCategory('brand')
         }
 
-       
+       // handle search section
+       const [search, setSearch] = useState('')
+
+       const handleSearch = (e) => {
+        setSearch(e.target.value)
+        filterData()
+        
+       }
+
+       console.log(search)
+
+       const [filtered, setFiltered ] = useState()
+       var filteredArray = []
+
+
+       const filterData = () => {
+        imageList.forEach((image) => {
+            if(image.photographer.toLowerCase().includes(search.toLowerCase()) ) {
+               
+                    filteredArray.push(image)
+                
+                
+            }
+
+            setFiltered(filteredArray)
+            
+        });
+        console.log(filtered)
+       }
+
+       const [searchContent, setSearchContent] = useState(false)
+       const onSubmit = () => {
+        if(filtered){
+            setSearchContent(true)
+        }
+       }
 
 
     return (
         <div className="home-page">
             
-            <label >
+            <label className="search-container" style={{width: '80%'}}>
                 <input
                     className="input"
                     placeholder="search by photographer name"
-
+                    value={search}
+                    onChange={handleSearch}
                  />
+                 <button className="search-button" onClick={()=> {}}>Search</button>
             </label>
+            {/* trying to make the search content appear */}
+            {searchContent &&  <div className="grid-container">
+                {
+                    filtered.map((image, index)=> {
+                        <div key={index} draggable 
+                        onDragStart={(e)=> dragItem.current=index}
+                        onDragEnter={(e)=> dragOverItem.current=index}
+                        onDragEnd={handleSort}
+                        onDragOver={(e)=> e.preventDefault()}
+                        
+                        >
+                        
+                        <SearchCard key={image.id} image = {image} />
+                        
+                    </div>
+                    })
+                }
+            </div> }
+               
+
             <div className="home-content"> 
 
             <div className="nav-bar">
@@ -143,7 +201,7 @@ const Home = () => {
             { !imageList? <Loader /> 
                 :
                 <div id="grid-container">
-                {imageList?.map((image, index) => (
+                {imageList?.slice(0, 15).map((image, index) => (
                     <div key={index} draggable 
                         onDragStart={(e)=> dragItem.current=index}
                         onDragEnter={(e)=> dragOverItem.current=index}

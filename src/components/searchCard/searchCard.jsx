@@ -1,14 +1,14 @@
 import React from "react";
-import './imageCard.css'
+import './searchCard.css'
 
 
 
 
-function ImageCard ({image}) {
+function SearchCard ({image}) {
     
     
     return (
-        <div className="image-card"  >
+        <div className="search-card"  >
             <img src={image.src.portrait} className="image"/>
             <p>{image.photographer}</p>
         </div>
@@ -16,4 +16,4 @@ function ImageCard ({image}) {
 }
 
 
-export default ImageCard
+export default SearchCard
