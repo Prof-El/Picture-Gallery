@@ -1,38 +1,22 @@
 
 
-.image-search {
-    border: 1px solid white;
+.search-card {
+    /* border: 1px solid red; */
     display: flex;
     flex-direction: column;
     width: 150px;
     height: 170px;
     margin-bottom: 20px;
+    
     box-shadow: 0px 5px 26px 0px rgba(248, 246, 246, 0.22), 0px 20px 28px 0px rgb(0 0 0 / 30%);
 
 }
 
-
-
-.search-card:hover {
-    background: #996fae;
-    width: 160px;
-    height: 180px;
-    
-    transform: translate3d(50px);
-}
-
 .search-card > p {
-    color: rgb(226, 208, 104);
-    margin-top: 5px;
-    font-size: small;
-    font-weight: bold;
-    padding-left: 10px;
+    padding: 5px;
+    color: gold;
 }
 
 
 
-.search-card > .image {
-    width: 100%;
-    aspect-ratio: 5/4;
-    
-}
+

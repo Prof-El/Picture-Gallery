@@ -109,40 +109,31 @@ const Home = () => {
         }
 
        // handle search section
-       const [search, setSearch] = useState('')
+       const [search, setSearch] = useState()
+       const [filtered, setFiltered ] = useState([])
 
        const handleSearch = (e) => {
-        setSearch(e.target.value)
-        filterData()
+        const searchTerm = e.target.value
+        setSearch(searchTerm)
+        
+        // Filter the array based on search term
+        const filteredArray = imageList.filter((image)=> 
+        image.photographer.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+
+        setFiltered(filteredArray)
         
        }
 
        console.log(search)
+       console.log(filtered)
 
-       const [filtered, setFiltered ] = useState()
-       var filteredArray = []
+       
 
 
-       const filterData = () => {
-        imageList.forEach((image) => {
-            if(image.photographer.toLowerCase().includes(search.toLowerCase()) ) {
-               
-                    filteredArray.push(image)
-                
-                
-            }
-
-            setFiltered(filteredArray)
-            
-        });
-        console.log(filtered)
-       }
-
-       const [searchContent, setSearchContent] = useState(false)
-       const onSubmit = () => {
-        if(filtered){
-            setSearchContent(true)
-        }
+       const handleSubmit = () => {
+        setImageList(filtered)
+        setSearch('')
        }
 
 
@@ -156,26 +147,27 @@ const Home = () => {
                     value={search}
                     onChange={handleSearch}
                  />
-                 <button className="search-button" onClick={()=> {}}>Search</button>
+                 <button className="search-button" onClick={()=> {handleSubmit()}}>Search</button>
             </label>
             {/* trying to make the search content appear */}
-            {searchContent &&  <div className="grid-container">
-                {
-                    filtered.map((image, index)=> {
-                        <div key={index} draggable 
-                        onDragStart={(e)=> dragItem.current=index}
-                        onDragEnter={(e)=> dragOverItem.current=index}
-                        onDragEnd={handleSort}
-                        onDragOver={(e)=> e.preventDefault()}
-                        
-                        >
-                        
-                        <SearchCard key={image.id} image = {image} />
-                        
+            
+            {search?.length>1 ? (
+                <>
+                    <div className="search-content">
+                        <>
+                            {filtered.length > 0 ? 
+                                filtered.map((result)=> (
+                                
+                                    <SearchCard key={result.id} image={result} />
+                                )) : <p style={{padding: 20, width: 400}}>There's no listed photographer with that name</p>
+                        }
+                        </>
                     </div>
-                    })
+                </>
+            )
+                 : <div style={{display: 'none'}}></div>   
                 }
-            </div> }
+          
                
 
             <div className="home-content"> 
